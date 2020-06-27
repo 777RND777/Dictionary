@@ -9,7 +9,7 @@ adjectives = [
     Word("demanding", "требовательный"),
     Word("monotonous", "монотонный"),
     Word("motivating", "мотивирующий"),
-    Word("repetitive", "повтораяющийся"),
+    Word("repetitive", "повторяющийся"),
     Word("rewarding", "вознаграждаемый"),
     Word("tedious", "утомительный"),
 ]
