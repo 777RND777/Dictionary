@@ -45,7 +45,6 @@ class MainWindow(QWidget):
     def is_right(self):
         if self.is_game:
             if self.answerWord.text() == self.get_translation():
-                print("Right")
                 self.set_question_word()
             else:
                 QMessageBox.critical(None, 'Wrong', 'Right translation is ' + self.get_translation())
