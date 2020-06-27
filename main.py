@@ -1,3 +1,4 @@
+from database import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMessageBox, QLineEdit, QPushButton, QVBoxLayout, QWidget
 import sys
