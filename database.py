@@ -1,9 +1,15 @@
-adjectives = {
-    "challenging": "испытывающий",
-    "demanding": "требовательный",
-    "monotonous": "монотонный",
-    "motivating": "мотивирующий",
-    "repetitive": "повтораяющийся",
-    "rewarding": "вознаграждаемый",
-    "tedious": "утомительный",
-}
+class Word:
+    def __init__(self, eng, rus):
+        self.eng = eng
+        self.rus = rus
+
+
+adjectives = [
+    Word("challenging", "испытывающий"),
+    Word("demanding", "требовательный"),
+    Word("monotonous", "монотонный"),
+    Word("motivating", "мотивирующий"),
+    Word("repetitive", "повтораяющийся"),
+    Word("rewarding", "вознаграждаемый"),
+    Word("tedious", "утомительный"),
+]
