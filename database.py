@@ -4,6 +4,14 @@ class Word:
         self.rus = rus
 
 
+nouns = [
+    Word("germ", "микроб"),
+    Word("misery", "страдания"),
+    Word("poverty", "бедность"),
+    Word("rite", "обряд"),
+]
+
+
 adjectives = [
     Word("challenging", "испытывающий"),
     Word("demanding", "требовательный"),
