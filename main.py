@@ -13,6 +13,7 @@ class MainWindow(QWidget):
         self.resize(360, 480)
 
         self.is_game = False
+        self.random_word = ""
         self.word_list = []
 
         self.modeBox = QComboBox()
@@ -81,6 +82,7 @@ class MainWindow(QWidget):
         self.exitButton.show()
         self.is_game = True
         self.create_word_list()
+        self.set_question_word()
 
     def create_word_list(self):
         self.word_list = []
@@ -92,9 +94,14 @@ class MainWindow(QWidget):
     def is_right(self):
         if self.is_game:
             if self.answerWord.text() == self.get_translation():
-                self.set_question_word()
+                self.word_list.remove(self.random_word)
+                if len(self.word_list) == 0:
+                    QMessageBox.information(None, "Info", "You've finished all words from vocabulary.")
+                    self.set_start()
+                else:
+                    self.set_question_word()
             else:
-                QMessageBox.critical(None, 'Wrong', 'Right translation is ' + self.get_translation())
+                QMessageBox.critical(None, "Wrong", "Right translation is " + self.get_translation())
                 if self.oneLifeCheck.isChecked():
                     self.set_start()
                 else:
@@ -102,20 +109,22 @@ class MainWindow(QWidget):
             self.answerWord.setText("")
         else:
             self.start_game()
-            self.set_question_word()
 
     def set_question_word(self):
-        rnd = randint(0, len(self.word_list) - 1)
+        self.random_word = self.get_random_word()
         if self.modeBox.currentText() == "RUS->ENG":
-            self.questionWord.setText(self.word_list[rnd].rus)
+            self.questionWord.setText(self.random_word.rus)
         elif self.modeBox.currentText() == "ENG->RUS":
-            self.questionWord.setText(self.word_list[rnd].eng)
+            self.questionWord.setText(self.random_word.eng)
         else:
             self.mode = randint(1, 2)
             if self.mode == 1:
-                self.questionWord.setText(self.word_list[rnd].rus)
+                self.questionWord.setText(self.random_word.rus)
             elif self.mode == 2:
-                self.questionWord.setText(self.word_list[rnd].eng)
+                self.questionWord.setText(self.random_word.eng)
+
+    def get_random_word(self):
+        return self.word_list[randint(0, len(self.word_list) - 1)]
 
     def get_translation(self):
         if self.modeBox.currentText() == "RUS->ENG":
@@ -139,11 +148,11 @@ class MainWindow(QWidget):
 
 
 def catch_exceptions(t, val, tb):
-    QMessageBox.critical(None, 'An exception was raised', 'Exception type: {}'.format(t))
+    QMessageBox.critical(None, "An exception was raised", "Exception type: {}".format(t))
     old_hook(t, val, tb)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     old_hook = sys.excepthook
     sys.excepthook = catch_exceptions
 
