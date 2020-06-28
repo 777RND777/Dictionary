@@ -76,6 +76,7 @@ class MainWindow(QWidget):
     def start_game(self):
         self.score = 0
         self.wrong = 0
+        self.create_word_list()
         self.modeBox.hide()
         self.oneLifeCheck.hide()
         self.nounCheck.hide()
@@ -84,7 +85,6 @@ class MainWindow(QWidget):
         self.answerWord.show()
         self.submitButton.setText("Submit")
         self.exitButton.show()
-        self.create_word_list()
         self.set_question_word()
         self.is_game = True
 
