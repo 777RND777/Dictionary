@@ -13,6 +13,7 @@ class MainWindow(QWidget):
         self.resize(360, 480)
 
         self.is_game = False
+        self.word_list = []
 
         self.modeBox = QComboBox()
         self.modeBox.addItems(["RUS->ENG", "ENG->RUS", "BOTH"])
@@ -66,6 +67,14 @@ class MainWindow(QWidget):
         self.answerWord.show()
         self.submitButton.setText("Submit")
         self.is_game = True
+        self.create_word_list()
+
+    def create_word_list(self):
+        self.word_list = []
+        if self.nounCheck.isChecked():
+            self.word_list += nouns
+        if self.adjCheck.isChecked():
+            self.word_list += adjectives
 
     def is_right(self):
         if self.is_game:
@@ -80,17 +89,17 @@ class MainWindow(QWidget):
             self.set_question_word()
 
     def set_question_word(self):
-        rnd = randint(0, len(adjectives) - 1)
+        rnd = randint(0, len(self.word_list) - 1)
         if self.modeBox.currentText() == "RUS->ENG":
-            self.questionWord.setText(adjectives[rnd].rus)
+            self.questionWord.setText(self.word_list[rnd].rus)
         elif self.modeBox.currentText() == "ENG->RUS":
-            self.questionWord.setText(adjectives[rnd].eng)
+            self.questionWord.setText(self.word_list[rnd].eng)
         else:
             self.mode = randint(1, 2)
             if self.mode == 1:
-                self.questionWord.setText(adjectives[rnd].rus)
+                self.questionWord.setText(self.word_list[rnd].rus)
             elif self.mode == 2:
-                self.questionWord.setText(adjectives[rnd].eng)
+                self.questionWord.setText(self.word_list[rnd].eng)
 
     def get_translation(self):
         if self.modeBox.currentText() == "RUS->ENG":
@@ -103,14 +112,14 @@ class MainWindow(QWidget):
             return self.eng_to_rus()
 
     def rus_to_eng(self):
-        for adjective in adjectives:
-            if adjective.rus == self.questionWord.text():
-                return adjective.eng
+        for word in self.word_list:
+            if word.rus == self.questionWord.text():
+                return word.eng
 
     def eng_to_rus(self):
-        for adjective in adjectives:
-            if adjective.eng == self.questionWord.text():
-                return adjective.rus
+        for word in self.word_list:
+            if word.eng == self.questionWord.text():
+                return word.rus
 
 
 def catch_exceptions(t, val, tb):
