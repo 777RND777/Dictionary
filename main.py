@@ -174,6 +174,13 @@ class MainWindow(QWidget):
             if word.eng == self.questionWord.text():
                 return word.rus
 
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_Return:
+            if self.is_game:
+                self.is_right()
+            else:
+                self.start_game()
+
 
 def catch_exceptions(t, val, tb):
     QMessageBox.critical(None, "An exception was raised", "Exception type: {}".format(t))
