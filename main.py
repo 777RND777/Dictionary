@@ -19,6 +19,9 @@ class MainWindow(QWidget):
         self.modeBox.addItems(["RUS->ENG", "ENG->RUS", "BOTH"])
         self.mode = 0
 
+        self.oneLifeCheck = QCheckBox()
+        self.oneLifeCheck.setText("One life")
+
         self.nounCheck = QCheckBox()
         self.nounCheck.setText("Nouns")
         self.nounCheck.setChecked(True)
@@ -47,6 +50,7 @@ class MainWindow(QWidget):
 
         self.mainLayout = QVBoxLayout()
         self.mainLayout.addWidget(self.modeBox, alignment=Qt.AlignCenter)
+        self.mainLayout.addWidget(self.oneLifeCheck, alignment=Qt.AlignCenter)
         self.mainLayout.addLayout(self.partOfSpeech)
         self.mainLayout.addWidget(self.questionWord, alignment=Qt.AlignCenter)
         self.mainLayout.addWidget(self.answerWord, alignment=Qt.AlignCenter)
@@ -56,9 +60,10 @@ class MainWindow(QWidget):
         self.setLayout(self.mainLayout)
 
     def set_start(self):
+        self.modeBox.show()
+        self.oneLifeCheck.show()
         self.nounCheck.show()
         self.adjCheck.show()
-        self.modeBox.show()
         self.questionWord.hide()
         self.answerWord.hide()
         self.submitButton.setText("Start")
@@ -66,9 +71,10 @@ class MainWindow(QWidget):
         self.is_game = False
 
     def start_game(self):
+        self.modeBox.hide()
+        self.oneLifeCheck.hide()
         self.nounCheck.hide()
         self.adjCheck.hide()
-        self.modeBox.hide()
         self.questionWord.show()
         self.answerWord.show()
         self.submitButton.setText("Submit")
@@ -89,7 +95,10 @@ class MainWindow(QWidget):
                 self.set_question_word()
             else:
                 QMessageBox.critical(None, 'Wrong', 'Right translation is ' + self.get_translation())
-                self.set_start()
+                if self.oneLifeCheck.isChecked():
+                    self.set_start()
+                else:
+                    self.set_question_word()
             self.answerWord.setText("")
         else:
             self.start_game()
