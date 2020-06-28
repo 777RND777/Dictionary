@@ -14,6 +14,8 @@ class MainWindow(QWidget):
 
         self.is_game = False
         self.random_word = ""
+        self.score = 0
+        self.wrong = 0
         self.word_list = []
 
         self.modeBox = QComboBox()
@@ -72,6 +74,8 @@ class MainWindow(QWidget):
         self.is_game = False
 
     def start_game(self):
+        self.score = 0
+        self.wrong = 0
         self.modeBox.hide()
         self.oneLifeCheck.hide()
         self.nounCheck.hide()
@@ -80,9 +84,9 @@ class MainWindow(QWidget):
         self.answerWord.show()
         self.submitButton.setText("Submit")
         self.exitButton.show()
-        self.is_game = True
         self.create_word_list()
         self.set_question_word()
+        self.is_game = True
 
     def create_word_list(self):
         self.word_list = []
@@ -95,16 +99,23 @@ class MainWindow(QWidget):
         if self.is_game:
             if self.answerWord.text() == self.get_translation():
                 self.word_list.remove(self.random_word)
+                self.score += 1
                 if len(self.word_list) == 0:
-                    QMessageBox.information(None, "Info", "You've finished all words from vocabulary.")
+                    QMessageBox.information(
+                        None, "Info", "You've finished all words from vocabulary.\nWrong answers : " + str(self.wrong)
+                    )
                     self.set_start()
                 else:
                     self.set_question_word()
             else:
-                QMessageBox.critical(None, "Wrong", "Right translation is " + self.get_translation())
                 if self.oneLifeCheck.isChecked():
+                    QMessageBox.critical(
+                        None, "Wrong", "Right translation is " + self.get_translation() + "\nScore : " + str(self.score)
+                    )
                     self.set_start()
                 else:
+                    QMessageBox.critical(None, "Wrong", "Right translation is " + self.get_translation())
+                    self.wrong += 1
                     self.set_question_word()
             self.answerWord.setText("")
         else:
