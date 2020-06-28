@@ -11,6 +11,9 @@ nouns = [
     Word("rite", "обряд"),
 ]
 
+verbs = [
+    Word("do", "делать"),
+]
 
 adjectives = [
     Word("challenging", "испытывающий"),
@@ -20,4 +23,8 @@ adjectives = [
     Word("repetitive", "повторяющийся"),
     Word("rewarding", "вознаграждаемый"),
     Word("tedious", "утомительный"),
+]
+
+adverbs = [
+    Word("prematurely", "преждевременно"),
 ]

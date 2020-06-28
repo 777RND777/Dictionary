@@ -29,13 +29,23 @@ class MainWindow(QWidget):
         self.nounCheck.setText("Nouns")
         self.nounCheck.setChecked(True)
 
+        self.verbCheck = QCheckBox()
+        self.verbCheck.setText("Verbs")
+        self.verbCheck.setChecked(True)
+
         self.adjCheck = QCheckBox()
         self.adjCheck.setText("Adjectives")
         self.adjCheck.setChecked(True)
 
+        self.adverbCheck = QCheckBox()
+        self.adverbCheck.setText("Adverbs")
+        self.adverbCheck.setChecked(True)
+
         self.partOfSpeech = QHBoxLayout()
         self.partOfSpeech.addWidget(self.nounCheck, alignment=Qt.AlignCenter)
+        self.partOfSpeech.addWidget(self.verbCheck, alignment=Qt.AlignCenter)
         self.partOfSpeech.addWidget(self.adjCheck, alignment=Qt.AlignCenter)
+        self.partOfSpeech.addWidget(self.adverbCheck, alignment=Qt.AlignCenter)
 
         self.questionWord = QLineEdit()
         self.questionWord.setReadOnly(True)
@@ -66,7 +76,9 @@ class MainWindow(QWidget):
         self.modeBox.show()
         self.oneLifeCheck.show()
         self.nounCheck.show()
+        self.verbCheck.show()
         self.adjCheck.show()
+        self.adverbCheck.show()
         self.questionWord.hide()
         self.answerWord.hide()
         self.submitButton.setText("Start")
@@ -80,7 +92,9 @@ class MainWindow(QWidget):
         self.modeBox.hide()
         self.oneLifeCheck.hide()
         self.nounCheck.hide()
+        self.verbCheck.hide()
         self.adjCheck.hide()
+        self.adverbCheck.hide()
         self.questionWord.show()
         self.answerWord.show()
         self.submitButton.setText("Submit")
@@ -92,8 +106,12 @@ class MainWindow(QWidget):
         self.word_list = []
         if self.nounCheck.isChecked():
             self.word_list += nouns
+        if self.verbCheck.isChecked():
+            self.word_list += verbs
         if self.adjCheck.isChecked():
             self.word_list += adjectives
+        if self.adverbCheck.isChecked():
+            self.word_list += adverbs
 
     def is_right(self):
         if self.is_game:
@@ -107,16 +125,15 @@ class MainWindow(QWidget):
                     self.set_start()
                 else:
                     self.set_question_word()
+            elif self.oneLifeCheck.isChecked():
+                QMessageBox.critical(
+                    None, "Wrong", "Right translation is " + self.get_translation() + "\nScore : " + str(self.score)
+                )
+                self.set_start()
             else:
-                if self.oneLifeCheck.isChecked():
-                    QMessageBox.critical(
-                        None, "Wrong", "Right translation is " + self.get_translation() + "\nScore : " + str(self.score)
-                    )
-                    self.set_start()
-                else:
-                    QMessageBox.critical(None, "Wrong", "Right translation is " + self.get_translation())
-                    self.wrong += 1
-                    self.set_question_word()
+                QMessageBox.critical(None, "Wrong", "Right translation is " + self.get_translation())
+                self.wrong += 1
+                self.set_question_word()
             self.answerWord.setText("")
         else:
             self.start_game()
