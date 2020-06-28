@@ -1,6 +1,7 @@
 from database import *
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QComboBox, QMessageBox, QLineEdit, QPushButton, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QHBoxLayout, QMessageBox,
+                             QLineEdit, QPushButton, QVBoxLayout, QWidget)
 from random import randint
 import sys
 
@@ -17,6 +18,18 @@ class MainWindow(QWidget):
         self.modeBox.addItems(["RUS->ENG", "ENG->RUS", "BOTH"])
         self.mode = 0
 
+        self.nounCheck = QCheckBox()
+        self.nounCheck.setText("Nouns")
+        self.nounCheck.setChecked(True)
+
+        self.adjCheck = QCheckBox()
+        self.adjCheck.setText("Adjectives")
+        self.adjCheck.setChecked(True)
+
+        self.partOfSpeech = QHBoxLayout()
+        self.partOfSpeech.addWidget(self.nounCheck, alignment=Qt.AlignCenter)
+        self.partOfSpeech.addWidget(self.adjCheck, alignment=Qt.AlignCenter)
+
         self.questionWord = QLineEdit()
         self.questionWord.setReadOnly(True)
 
@@ -29,6 +42,7 @@ class MainWindow(QWidget):
 
         self.mainLayout = QVBoxLayout()
         self.mainLayout.addWidget(self.modeBox, alignment=Qt.AlignCenter)
+        self.mainLayout.addLayout(self.partOfSpeech)
         self.mainLayout.addWidget(self.questionWord, alignment=Qt.AlignCenter)
         self.mainLayout.addWidget(self.answerWord, alignment=Qt.AlignCenter)
         self.mainLayout.addWidget(self.submitButton, alignment=Qt.AlignCenter)
@@ -36,6 +50,8 @@ class MainWindow(QWidget):
         self.setLayout(self.mainLayout)
 
     def set_start(self):
+        self.nounCheck.show()
+        self.adjCheck.show()
         self.modeBox.show()
         self.questionWord.hide()
         self.answerWord.hide()
@@ -43,6 +59,8 @@ class MainWindow(QWidget):
         self.is_game = False
 
     def start_game(self):
+        self.nounCheck.hide()
+        self.adjCheck.hide()
         self.modeBox.hide()
         self.questionWord.show()
         self.answerWord.show()
