@@ -39,6 +39,10 @@ class MainWindow(QWidget):
         self.submitButton = QPushButton()
         self.submitButton.clicked.connect(self.is_right)
 
+        self.exitButton = QPushButton()
+        self.exitButton.setText("Exit")
+        self.exitButton.clicked.connect(self.set_start)
+
         self.set_start()
 
         self.mainLayout = QVBoxLayout()
@@ -47,6 +51,7 @@ class MainWindow(QWidget):
         self.mainLayout.addWidget(self.questionWord, alignment=Qt.AlignCenter)
         self.mainLayout.addWidget(self.answerWord, alignment=Qt.AlignCenter)
         self.mainLayout.addWidget(self.submitButton, alignment=Qt.AlignCenter)
+        self.mainLayout.addWidget(self.exitButton, alignment=Qt.AlignCenter)
 
         self.setLayout(self.mainLayout)
 
@@ -57,6 +62,7 @@ class MainWindow(QWidget):
         self.questionWord.hide()
         self.answerWord.hide()
         self.submitButton.setText("Start")
+        self.exitButton.hide()
         self.is_game = False
 
     def start_game(self):
@@ -66,6 +72,7 @@ class MainWindow(QWidget):
         self.questionWord.show()
         self.answerWord.show()
         self.submitButton.setText("Submit")
+        self.exitButton.show()
         self.is_game = True
         self.create_word_list()
 
