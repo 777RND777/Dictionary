@@ -1,10 +1,10 @@
-from PyQt5.QtWidgets import QApplication, QMessageBox, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMessageBox, QStackedWidget
 import game
 import settings
 import sys
 
 
-class MainWindow(QMainWindow):
+class MainWindow(QStackedWidget):
     def __init__(self, **kwargs):
         super(MainWindow, self).__init__(**kwargs)
         self.setWindowTitle("Dictionary")
@@ -12,16 +12,18 @@ class MainWindow(QMainWindow):
 
         self.settingsWidget = settings.SettingsWidget()
         self.settingsWidget.switch_window.connect(self.to_game)
+        self.addWidget(self.settingsWidget)
         self.to_settings()
 
         self.gameWidget = game.GameWidget()
         self.gameWidget.switch_window.connect(self.to_settings)
+        self.addWidget(self.gameWidget)
 
     def to_settings(self):
-        self.setCentralWidget(self.settingsWidget)
+        self.setCurrentWidget(self.settingsWidget)
 
     def to_game(self):
-        self.setCentralWidget(self.gameWidget)
+        self.setCurrentWidget(self.gameWidget)
         self.gameWidget.set_start(self.settingsWidget.get_settings())
 
 
