@@ -14,7 +14,7 @@ class GameWidget(QWidget):
         self.score = 0
         self.wrong = 0
         self.lang = 0
-        self.mode = ""
+        self.settings = None
         self.random_word = ""
 
         self.questionWord = QLineEdit()
@@ -40,29 +40,29 @@ class GameWidget(QWidget):
 
         self.setLayout(self.mainLayout)
 
-    def set_start(self, mode):
+    def set_start(self, settings):
         self.score = 0
         self.wrong = 0
-        self.mode = mode
+        self.settings = settings
         self.create_word_list()
         self.set_question_word()
 
     def create_word_list(self):
         self.word_list = []
-    # if self.nounCheck.isChecked():
-    #     self.word_list += nouns
-    # if self.verbCheck.isChecked():
-        self.word_list += verbs
-    # if self.adjCheck.isChecked():
-    #     self.word_list += adjectives
-    # if self.adverbCheck.isChecked():
-    #     self.word_list += adverbs
+        if self.settings.noun:
+            self.word_list += nouns
+        if self.settings.verb:
+            self.word_list += verbs
+        if self.settings.adj:
+            self.word_list += adjectives
+        if self.settings.adverb:
+            self.word_list += adverbs
 
     def set_question_word(self):
         self.random_word = self.get_random_word()
-        if self.mode == "RUS->ENG":
+        if self.settings.mode == "RUS->ENG":
             self.questionWord.setText(self.random_word.rus)
-        elif self.mode == "ENG->RUS":
+        elif self.settings.mode == "ENG->RUS":
             self.questionWord.setText(self.random_word.eng)
         else:
             self.lang = randint(1, 2)
@@ -85,11 +85,11 @@ class GameWidget(QWidget):
                 self.switch_window.emit()
             else:
                 self.set_question_word()
-        # elif self.oneLifeCheck.isChecked():
-        #     QMessageBox.critical(
-        #         None, "Wrong", "Right translation is " + self.get_translation() + "\nScore : " + str(self.score) + "."
-        #     )
-        #     self.switch_window.emit()
+        elif self.settings.oneLife:
+            QMessageBox.critical(
+                None, "Wrong", "Right translation is " + self.get_translation() + "\nScore : " + str(self.score) + "."
+            )
+            self.switch_window.emit()
         else:
             QMessageBox.critical(None, "Wrong", "Right translation is " + self.get_translation() + ".")
             self.wrong += 1
@@ -97,9 +97,9 @@ class GameWidget(QWidget):
         self.answerWord.setText("")
 
     def get_translation(self):
-        if self.mode == "RUS->ENG":
+        if self.settings.mode == "RUS->ENG":
             return self.rus_to_eng()
-        elif self.mode == "ENG->RUS":
+        elif self.settings.mode == "ENG->RUS":
             return self.eng_to_rus()
         elif self.lang == 1:
             return self.rus_to_eng()

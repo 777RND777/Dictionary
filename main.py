@@ -22,7 +22,7 @@ class MainWindow(QMainWindow):
 
     def to_game(self):
         self.setCentralWidget(self.gameWidget)
-        self.gameWidget.set_start(self.settingsWidget.modeBox.currentText())
+        self.gameWidget.set_start(self.settingsWidget.get_settings())
 
 
 def catch_exceptions(t, val, tb):
