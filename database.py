@@ -1,30 +1,24 @@
-class Word:
-    def __init__(self, eng, rus):
-        self.eng = eng
-        self.rus = rus
-
-
 nouns = [
-    Word("germ", "микроб"),
-    Word("misery", "страдания"),
-    Word("poverty", "бедность"),
-    Word("rite", "обряд"),
+    {"eng": "germ", "rus": "микроб"},
+    {"eng": "misery", "rus": "страдания"},
+    {"eng": "poverty", "rus": "бедность"},
+    {"eng": "rite", "rus": "обряд"},
 ]
 
 verbs = [
-    Word("do", "делать"),
+    {"eng": "do", "rus": "делать"},
 ]
 
 adjectives = [
-    Word("challenging", "испытывающий"),
-    Word("demanding", "требовательный"),
-    Word("monotonous", "монотонный"),
-    Word("motivating", "мотивирующий"),
-    Word("repetitive", "повторяющийся"),
-    Word("rewarding", "вознаграждаемый"),
-    Word("tedious", "утомительный"),
+    {"eng": "challenging", "rus": "испытывающий"},
+    {"eng": "demanding", "rus": "требовательный"},
+    {"eng": "monotonous", "rus": "монотонный"},
+    {"eng": "motivating", "rus": "мотивирующий"},
+    {"eng": "repetitive", "rus": "повторяющийся"},
+    {"eng": "rewarding", "rus": "вознаграждаемый"},
+    {"eng": "tedious", "rus": "утомительный"},
 ]
 
 adverbs = [
-    Word("prematurely", "преждевременно"),
+    {"eng": "prematurely", "rus": "преждевременно"},
 ]

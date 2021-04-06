@@ -2,16 +2,6 @@ from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtWidgets import QCheckBox, QComboBox, QHBoxLayout, QPushButton, QVBoxLayout, QWidget
 
 
-class Settings:
-    def __init__(self, mode, one_life, noun, verb, adj, adverb):
-        self.mode = mode
-        self.oneLife = one_life
-        self.noun = noun
-        self.verb = verb
-        self.adj = adj
-        self.adverb = adverb
-
-
 class SettingsWidget(QWidget):
     switch_window = pyqtSignal()
 
@@ -60,11 +50,11 @@ class SettingsWidget(QWidget):
         self.setLayout(self.mainLayout)
 
     def get_settings(self):
-        return Settings(
-            self.modeBox.currentText(),
-            self.oneLifeCheck.isChecked(),
-            self.nounCheck.isChecked(),
-            self.verbCheck.isChecked(),
-            self.adjCheck.isChecked(),
-            self.adverbCheck.isChecked(),
-        )
+        return {
+            "mode": self.modeBox.currentText(),
+            "one_life": self.oneLifeCheck.isChecked(),
+            "noun": self.nounCheck.isChecked(),
+            "verb": self.verbCheck.isChecked(),
+            "adj": self.adjCheck.isChecked(),
+            "adverb": self.adverbCheck.isChecked(),
+        }
