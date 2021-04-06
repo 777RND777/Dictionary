@@ -28,7 +28,7 @@ class MainWindow(QStackedWidget):
 
 
 def catch_exceptions(t, val, tb):
-    QMessageBox.critical(None, "An exception was raised", "Exception type: {}".format(t))
+    QMessageBox.critical(None, "An exception was raised", f"Exception type: {t}")
     old_hook(t, val, tb)
 
 
